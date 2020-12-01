@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from '../Nav';
+import { admininterndashboard } from './Apis';
+
+
+const InternPerformance=({match})=> {
+
+    const {pathname}=useLocation();
 
 
 
-const InternPerformance=()=> {
     const [intern,setintern]=useState({
 
         firstname:"",
@@ -14,19 +19,45 @@ const InternPerformance=()=> {
         college:"",
         address:"",
         email:"",
-        project:[],
+        projects:[],
         pcomp:"",
         ppend:"",
         ptot:"",
         task:[],
-        tcomp:"",
-        tpend:"",
+        tcomp:[],
+        tpend:[],
         ttot:"",
         hrs:"",
         period:"",
         uid:"",
-        loaded:"false",
+        loaded:false,
 });
+
+        const preload=()=>{
+            admininterndashboard(match.params.id).then(data=>{
+                if(data){
+                    setintern({...intern,
+                    projects:data,loaded:true})
+                    
+                }
+            })
+            
+
+        }
+
+console.log(intern.projects)
+console.log(intern.projects.task)
+
+console.log(intern.loaded)
+
+
+        useEffect(()=>{
+        preload()
+        },[pathname==='/performance/:id'])
+
+
+
+
     return (
         <div>
             <Nav/>
@@ -51,92 +82,93 @@ const InternPerformance=()=> {
 
             
         </div></Sidediv>
+        {intern.loaded ?(
         <Maindiv>
         <div className="db pt-5">
     
     <div className="container  userdashboard pb-5">
     <div className="row">    
     <h3 className="mgbt-xs-15 mgtp-10 font-semibold col">
-    <i className="fa fa-user-circle pl-5 pt-5">Intern DashBoard </i>
+        <i className="fa fa-user-circle pl-5 pt-5">Intern DashBoard <span className="pl-5">id:{intern.projects.intern.id}</span></i>
     </h3>
-<p className="col pt-5"><h5 className="col">id:-</h5><h6 className="col">{intern.uid}</h6></p>
+
     </div>
     <hr/>
     <div className="row pt-5 line">
     <li className="list-group-item col">   
                         <span className="badge bagde-success">First Name:</span>
-<span className="det1">{intern.firstname}</span>
+<span className="det1">{intern.projects.intern.fname}</span>
                     </li>
                     <li className="list-group-item col">   
                         <span className="badge bagde-success">Last Name:</span>
-<span className="det1">{intern.lastname}</span>
+<span className="det1">{intern.projects.intern.lname}</span>
                     </li>
     </div>
     
     <div className="row pt-3 line">
     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-envelope">Email:</span>
-<span className="det1">abcd@gmail.com</span>
+    <span className="det1">{intern.projects.intern.email}</span>
                     </li>
                     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-phone">Phone:</span>
-<span className="det1">{intern.phone}</span>
+<span className="det1">{intern.projects.intern.phone}</span>
                     </li>
     </div>
     <div className="row pt-3 line">
     <li className="list-group-item col">   
                         <span className="badge fa fa-address-card">Address:</span>
-<span className="det1">{intern.address}</span>
+<span className="det1">{intern.projects.intern.address}</span>
                     </li>
     </div>
     <div className="row pt-3 line">
     <li className="list-group-item col">   
         <span className="badge bagde-success fa fa-graduation-cap">College:</span>
-<span className="det1">{intern.college}</span>
+<span className="det1">{intern.projects.intern.college}</span>
                     </li>
     </div>
     <div className="row pt-3 line">
     <div className="col">
     <h5 className="pl-3 pb-3">Projects</h5>
     
-    {/* {intern.project.length>0 &&
+    {intern.projects.projects.length>0 &&
     <ul>
     
     
-    {intern.project.map((p,idx)=>{
-            return( <li className="lst">{project[idx]}</li>
+    {intern.projects.projects.map((p,idx)=>{
+            return( <li className="lst">{intern.projects.projects[idx]["title"]}</li>
         )})}
 
 
-</ul>} */}
+</ul>}
     </div>
     <div className="col">
     <h5 className="pl-3 pb-3">Tasks</h5>
-    {/* {intern.task.length>0 &&
+    {intern.projects.task.length>0 &&
     <ul>
     
     
-    {intern.task.map((p,idx)=>{
-            return( <li className="lst">{task[idx]}</li>
+    {intern.projects.task.map((p,idx)=>{
+            return( <li className="lst">{intern.projects.task[idx]["title"]}</li>
         )})}
 
 
-</ul>} */}
+</ul>}
     </div>
     </div>
     <div className="row pt-5 line">
     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-check">Project Completed:</span>
-            <span className="badge badge-primary badge-pill">{intern.pcomp}</span>
+            <span className="badge badge-primary badge-pill">{intern.projects.projcomp.length}</span>
                     </li>
                     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-exclamation-triangle">Projects Left:</span>
-            <span className="badge badge-primary badge-pill">{intern.ppend}</span>
+            <span className="badge badge-primary badge-pill">{intern.projects.projleft.length}</span>
                     </li>
     </div>  
 
 
-    <div class="row progress pt-5 pb-5 ">
+    {/* <div class="row progress pt-5 pb-5 ">
     <div className="progress col pl-5">
 <div className="progress-bar bg-success " role="progressbar" aria-valuenow="60"
 aria-valuemin="0" aria-valuemax="100" style={{width:`${intern.pcomp*10+20}%`}}>
@@ -150,17 +182,18 @@ aria-valuemin="0" aria-valuemax="100" style={{width:`${intern.ppend*10+20}%`}}>
 {intern.ppend*10}% left 
 </div>
 </div>
-</div>
+</div> */}
     <div className="row pt-3 line">
     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-check">Task Completed:</span>
-            <span className="badge badge-primary badge-pill">{intern.tcomp}</span>
+            <span className="badge badge-primary badge-pill">{intern.projects.taskcomp.length}</span>
                     </li>
                     <li className="list-group-item col">   
                         <span className="badge bagde-success fa fa-exclamation-triangle">Task Left:</span>
-            <span className="badge badge-primary badge-pill">{intern.tpend}</span>
+            <span className="badge badge-primary badge-pill">{intern.projects.taskleft.length}</span>
                     </li>
     </div>   
+{/*     
     <div class="row progress pt-5 pb-5">
     <div className="progress col pl-5">
 <div className="progress-bar bg-success" role="progressbar" aria-valuenow="60"
@@ -177,17 +210,17 @@ aria-valuemin="0" aria-valuemax="100" style={{width:`${intern.tpend*10+20}%`}}>
 </div>
 
 
-</div>         
+</div>          */}
 <div className="row pt-3 line">
     <li className="list-group-item col">   
                         <span className="badge  fa fa-clock-o">Total Worked Hours:</span>
-            <span className="badge badge-primary badge-pill ">{intern.hrs}</span>
-                        <span className="det">Hours</span>
+            <span className="badge badge-primary badge-pill ">{intern.projects.workedhours}</span>
+                        <span className="det pl-2">days</span>
                     </li>
     </div>
     </div>
 </div>
-</Maindiv>
+</Maindiv>):<h1>Loading/.....</h1>}
         </div>
 
     )

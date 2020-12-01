@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Nav from '../Nav'
-import { admingetproject } from './Apis'
-
+import { admingetproject, adminupdateproject } from './Apis'
 
 const EditProject=({match}) =>{
   const {pathname}=useLocation();
@@ -10,10 +9,14 @@ const EditProject=({match}) =>{
   const [values,setvalues]=useState({
     title: "",
     description: "",
-    createdby: "",
+    postedby: "",
     assignedto: "",
     estimation: "",
     status: "",
+    workedhours:0,
+    adminId:0,
+    id:0,
+
 
   })
   const [result,setresult]=useState({
@@ -22,7 +25,7 @@ const EditProject=({match}) =>{
   })
   
   const {error,success}=result;
-  const {title,description,createdby,assignedto,estimation,status}=values;
+  const {title,description,postedby,assignedto,estimation,statusadminId,id}=values;
 
   const handlechange=name=>event=>{
     setvalues({...values,[name]:event.target.value})
@@ -37,7 +40,10 @@ const preload=()=>{
         assignedto:data.assignedto,
         estimation:data.estimation,
         assignedto:data.assignedto,
-        status:data.status
+        status:data.status,
+        postedby:data.postedby,
+        adminId:data.adminId,
+        id:data.id
         
         })
     }).catch(err=>console.log(err))
@@ -53,6 +59,21 @@ preload()
   pathname==='/project/editproject/:id'
 ])
 
+const onsubmit=event=>{
+  event.preventDefault();
+  adminupdateproject(match.params.id,values).then(data=>{
+    setvalues({...values,
+      title: "",
+      description: "",
+      postedby: "",
+      assignedto: "",
+      estimation: "",
+      status: "",
+    })
+  }).catch(err=>console.log(err))
+
+
+}
 
 
 
@@ -74,7 +95,7 @@ preload()
 
     <div class="form-group col-md-6">
       <label>Created By</label>
-      <input type="email" className="form-control"  onChange={handlechange("createdby")} autoFocus required  value={createdby}/>
+      <input type="email" className="form-control"  onChange={handlechange("postedby")} autoFocus required  value={postedby}/>
     </div>
     <div class="form-group col-md-6">
       <label>Estimation</label>
@@ -86,14 +107,14 @@ preload()
     </div>
     <label className="pt-3">select status:</label>
     <div className="pl-5 pt-3">
-    <select className="row">
+    <select className="row" onChange={handlechange("status")}>
     <option value="not completed" onChange={handlechange("status")}>TO-DO</option>
-    <option value="in progress">IN-Progress</option>
-    <option value="completed">Completed</option>
+    <option value="in progress" onChange={handlechange("status")}>IN-Progress</option>
+    <option value="completed" onChange={handlechange("status")}>Completed</option>
       </select></div>
     <span className="pt-5 pl-5"></span>
 
-    <button className="btn btn-success p-2">Save Changes</button>
+    <button className="btn btn-success p-2" onClick={onsubmit}>Save Changes</button>
     </div>
     </div>            
         </div>

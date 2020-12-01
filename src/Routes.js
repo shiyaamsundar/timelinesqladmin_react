@@ -9,6 +9,7 @@ import EditTask from './Admin/EditTask';
 import Home from './Admin/Home';
 import InternPerformance from './Admin/InternPerformance';
 import InternProjects from './Admin/InternProjects';
+import Internprojecttask from './Admin/Internprojecttask';
 import InternTask from './Admin/InternTask';
 import Projects from './Admin/Projects';
 import ViewProject from './Admin/ViewProject';
@@ -22,14 +23,15 @@ function Routes() {
        <BrowserRouter>
         <Switch>
         <Route path="/" exact component={Home}></Route>
-        <Route path="/internproject/:id"  component={InternProjects}></Route>
+        <Route path="/internproject/:id" exact component={InternProjects}></Route>
+        <Route path="/internproject/tasks/:id" exact component={Internprojecttask}></Route>
         <Route path="/interntask/:id" exact component={InternTask}></Route>
         <Route path="/performance/:id" exact component={InternPerformance}></Route>
-        <Route path="/project/addproject" exact component={AddProject}></Route>
+        <Route path="/addproject" exact component={AddProject}></Route>
         <Route path="/addintern" exact component={AddIntern}></Route>
         <Route path="/dashboard" exact component={Dashboard}></Route>
         <Route path="/project" exact component={Projects}></Route>
-        <Route path="/project/addtask" exact component={Addtask}></Route>  
+        <Route path="/project/addtask/:id" exact component={Addtask}></Route>  
         <Route path="/project/edittask/:id" exact component={EditTask}></Route>
         <Route path="/project/editproject/:id" exact component={EditProject}></Route>
         <Route path="/project/viewproject" exact component={ViewProject}></Route>

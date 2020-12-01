@@ -50,8 +50,8 @@ const Styledblock=styled.div`
 .text-block{
     font-weight:600;
 position: absolute;
-  bottom: 130px;
-  right: 150px;
+  bottom: 100px;
+  right: 170px;
   color: white;
   padding-left: 20px;
   padding-right: 20px;

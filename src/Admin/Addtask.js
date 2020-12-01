@@ -2,25 +2,28 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../Nav'
 import { addadmin, adminaddtask, admingetproject } from './Apis'
+import { useAuth0 } from "@auth0/auth0-react";
 
 
-const  Addtask=(data)=> {
+const  Addtask=({match})=> {
+  const { user, isAuthenticated,loginWithRedirect } = useAuth0();
   const [values, setValues] = useState({
 
       title: "",
       description: "",
-      createdby: "",
+      createdby: user.name,
       assignedto: "",
       estimation: "",
       status: "not completed",
-      adminId: 1,
-      projectId:2,
+      adminId: window.$id,
+      projectId:match.params.id,
 })
 
 const [result,setresult]=useState({
   error:false,
   success:"",
 })
+
 
 
 
@@ -60,8 +63,8 @@ const onsubmit=event =>{
       assignedto: "",
       estimation: "",
       status: "not completed",
-      adminId: 1,
-      projectId:2,
+      adminId: window.$id,
+      projectId:0,
     
     })
 

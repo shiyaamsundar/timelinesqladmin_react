@@ -2,7 +2,7 @@ const API="http://localhost:5000"
 
 
 export const  adminaddproject=(data,id)=>{
-    return fetch(`${API}/project/${id}`,{
+    return fetch(`${API}/admins/${id}/projects`,{
         method:"POST",
         headers:{
         Accept:"application/json",
@@ -37,7 +37,8 @@ export const admingettask=(id)=>{
 
 }
 
-export const adminaddintern=(id,data)=>{
+export const adminaddintern=(data)=>{
+    console.log(data)
     return fetch(`${API}/interns`,{
         method:"POST",
         headers:{
@@ -171,9 +172,20 @@ export const admininterndashboard=(id)=>{
 
 }
 
+export const admininternalltask=(id)=>{
+    return fetch(`${API}/interns/${id}/alltasks`,
+    {method:'GET',}
+    )
+    .then(res=>{
+        return res.json()
+    })
+    .catch(err=>console.log(err))
+
+}
+
 
 export const adminupdatetask=(id,task)=>{
-    return fetch(`${API}/admin/task/${id}`,{
+    return fetch(`${API}/admins/task/${id}`,{
         method:"PUT",
         headers:{
             Accept:"application/json",
@@ -189,7 +201,8 @@ export const adminupdatetask=(id,task)=>{
 }
 
 export const adminupdateproject=(id,proj)=>{
-    return fetch(`${API}/admin/task/${id}`,{
+    console.log("proj",proj,id)
+    return fetch(`${API}/admins/project/${id}`,{
         method:"PUT",
         headers:{
             Accept:"application/json",

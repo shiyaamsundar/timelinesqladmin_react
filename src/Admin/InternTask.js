@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Nav from '../Nav'
-import { adminalltask, adminprojecttasks } from './Apis'
+import { adminalltask, adminprojecttasks ,admininternalltask} from './Apis'
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const InternTask=({match})=> {
+    const { user, isAuthenticated,loginWithRedirect } = useAuth0();
 
     const {pathname}=useLocation();
     const [interntask,setinterntask]=useState({
@@ -15,15 +17,17 @@ const InternTask=({match})=> {
         loading:true
     })
 
-    
 
+    
+console.log(match.params.id)
 
 
     const loadinterntask=()=>{
-        adminprojecttasks(match.params.id).then(data=>{
+        admininternalltask(match.params.id).then(data=>{
             if(data)
             {
                 setinterntask({...interntask,comp:data.comp,prog:data.prog,incomp:data.notcomp,loading:false}) 
+                console.log(data)
                 
             }
         })
@@ -77,9 +81,7 @@ const InternTask=({match})=> {
                 <div className="row pt-3 pl-4">
             <Link to={`/project/edittask/${details.details.id}`}><button className="btn btn-primary rounded">Edit-Task</button></Link>    
             </div>   
-            <div className="pt-3 pl-2">
-            <button className="btn btn-success rounded">Finish Task </button></div>
-           <div className='pt-2'></div>             
+
 
 
             </div>
@@ -103,13 +105,13 @@ const InternTask=({match})=> {
 
         
         <span className="pt-5 pl-2"></span>
-        <Link to="/project/editproject">
+        
         <button className="btn btn-primary">
           
-        <i class="fa fa-free-code-camp pr-3" aria-hidden="true"/><span>project title</span></button></Link>
+    <i class="fa fa-user pr-3" aria-hidden="true"/><span>{user.name}</span></button>
         <div className="pt-4 pl-3">
         <StyledI>
-        <Link to="/project/addtask"> <div className="row container pt-2"> <i class="fa fa-plus" aria-hidden="true"/><h5>
+        <Link to={`/project/addtask/${match.params.id}`}> <div className="row container pt-2"> <i class="fa fa-plus" aria-hidden="true"/><h5>
             Add Task</h5></div></Link>
             <Link to="/project/issue"> <div className="row container pt-4" ><i class="fa fa-bug" aria-hidden="true"/><h5>Raise Issue</h5></div></Link>
             <Link><div className="row container pt-4"><i class="fa fa-code" aria-hidden="true"/><h5>Components</h5></div></Link>
@@ -122,7 +124,7 @@ const InternTask=({match})=> {
             
         </div></Sidediv>
         <Maindiv>
-        <h3 class="display-6 pl-5 pt-3">Project TASK</h3>
+        <h3 class="display-6 pl-5 pt-3">Tasks</h3>
         <div className="row">
 
         <TODOdiv>TO DO</TODOdiv>

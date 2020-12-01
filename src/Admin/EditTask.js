@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Nav from '../Nav'
 import { adminupdatetask,admingettask } from './Apis'
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const EditTask=({match})=> {
   const {pathname}=useLocation();
-
+  const { user, isAuthenticated,loginWithRedirect } = useAuth0();
 
   const [values, setvalues] = useState({
 
     title: "",
     description: "",
-    createdby: "",
+    createdby: user.name,
     assignedto: "",
     estimation: "",
     projectId:"",
     status: "",
-    adminId: "",
-    projectId:"",
+    adminId: window.$id,
+    projectId:0,
+    id:0
 })
 
 const [result,setresult]=useState({
@@ -38,7 +39,8 @@ const preload=()=>{
       assignedto:data.assignedto,
       status:data.status,
       projectId:data.projectId,
-      createdby:data.createdby
+      createdby:data.createdby,
+      id:data.id
       
       })
   }).catch(err=>console.log(err))
@@ -95,6 +97,7 @@ adminupdatetask(values.projectId,values)
     status: "",
     adminId: "",
     projectId:"",
+    id:0
   
   })
 
