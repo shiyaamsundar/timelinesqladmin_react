@@ -1,4 +1,4 @@
-const API=" https://timeline-sql-backend.herokuapp.com"
+const API=" https://salty-brushlands-74212.herokuapp.com/"
 
 
 export const  adminaddproject=(data,id)=>{
