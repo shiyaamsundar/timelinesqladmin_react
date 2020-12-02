@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AddIntern from './Admin/AddIntern';
 import AddProject from './Admin/AddProject';
+import AddProject1 from './Admin/AddProject1';
 import Addtask from './Admin/Addtask';
 import Dashboard from './Admin/Dashboard';
 import EditProject from './Admin/EditProject';
@@ -27,7 +28,7 @@ function Routes() {
         <Route path="/internproject/tasks/:id" exact component={Internprojecttask}></Route>
         <Route path="/interntask/:id" exact component={InternTask}></Route>
         <Route path="/performance/:id" exact component={InternPerformance}></Route>
-        <Route path="/addproject" exact component={AddProject}></Route>
+        <Route path="/project/addproject" exact component={AddProject}></Route>
         <Route path="/addintern" exact component={AddIntern}></Route>
         <Route path="/dashboard" exact component={Dashboard}></Route>
         <Route path="/project" exact component={Projects}></Route>

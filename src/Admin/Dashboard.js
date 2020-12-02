@@ -108,8 +108,17 @@ useEffect(()=>{
         </div></Sidediv>
         <Maindiv>
         <h1 class="display-4">All interns</h1>
+
         <div className="col pl-3">
-            
+        {intern.loading &&(
+            <div className="d-flex justify-content-center pt-5">
+         
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
+
         {!intern.loading &&(
 
         <div className="row">

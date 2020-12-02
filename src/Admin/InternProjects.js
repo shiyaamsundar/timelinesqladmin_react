@@ -112,7 +112,7 @@ const InternProjects=({match,props})=> {
         <i class="fa fa-user pr-3" aria-hidden="true"/>{user.name}<span></span></button>
         <div className="pt-4 pl-3">
         <StyledI>
-        <Link to="/addproject"> <div className="row container pt-2"> <i class="fa fa-plus" aria-hidden="true"/><h5>
+        <Link to="/project/addproject"> <div className="row container pt-2"> <i class="fa fa-plus" aria-hidden="true"/><h5>
             Add Project</h5></div></Link>
             <Link to="/project/issue"> <div className="row container pt-4" ><i class="fa fa-bug" aria-hidden="true"/><h5>Raise Issue</h5></div></Link>
             <Link><div className="row container pt-4"><i class="fa fa-code" aria-hidden="true"/><h5>Components</h5></div></Link>
@@ -132,6 +132,14 @@ const InternProjects=({match,props})=> {
         <TODOdiv2> <span className="pl-5">In-Progress</span></TODOdiv2>
         <TODOdiv3> <span className="pl-5">Completed</span></TODOdiv3>
         </div>
+        {internproject.loading &&(
+            <div className="d-flex justify-content-center pt-5">
+         
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
         <div className="row">
             {internproject.incomp &&(
 

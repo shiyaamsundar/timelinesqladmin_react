@@ -1,4 +1,4 @@
-const API=" https://salty-brushlands-74212.herokuapp.com/"
+const API=" https://loopbackheroku-api.herokuapp.com"
 
 
 export const  adminaddproject=(data,id)=>{

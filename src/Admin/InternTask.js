@@ -131,7 +131,17 @@ console.log(match.params.id)
         <TODOdiv2> <span className="pl-5">In-Progress</span></TODOdiv2>
         <TODOdiv3> <span className="pl-5">Completed</span></TODOdiv3>
         </div>
+        {interntask.loading &&(
+            <div className="d-flex justify-content-center pt-5">
+         
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
+
         <div className="row">
+        
         {interntask.incomp &&(
 
 <div className="pt-5 pl-5 col">

@@ -81,6 +81,14 @@ console.log(intern.loaded)
 
             
         </div></Sidediv>
+        {!intern.loaded &&(
+            <div className="d-flex justify-content-center pt-5">
+         
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
         {intern.loaded ?(
         <Maindiv>
         <div className="db pt-5">

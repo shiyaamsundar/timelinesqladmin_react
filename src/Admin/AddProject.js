@@ -13,10 +13,10 @@ const  AddProject=(data)=> {
       title: "",
       description: "",
       postedby: user.name,
-      assignedto: "abcd@gmail.com",
-      estimation: 10,
+      assignedto: "",
+      estimation: "",
       status: "not completed",
-      adminId: 1,
+      adminId: window.$id,
       workedhours:0
 })
 
