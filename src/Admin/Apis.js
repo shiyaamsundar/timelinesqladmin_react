@@ -1,4 +1,4 @@
-const API="http://localhost:5000"
+const API=" https://timeline-sql-backend.herokuapp.com"
 
 
 export const  adminaddproject=(data,id)=>{
@@ -180,7 +180,6 @@ export const admininternalltask=(id)=>{
         return res.json()
     })
     .catch(err=>console.log(err))
-
 }
 
 

@@ -95,12 +95,12 @@ img{
 }
 
 `;
+
+
 const StyledImage=styled.div`
 img{
 width:65%;
 }
 `;
-
-
 
 export default Home

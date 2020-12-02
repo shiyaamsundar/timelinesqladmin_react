@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../Nav'
-import { addadmin, adminaddtask, admingetproject } from './Apis'
+import {adminaddproject,} from './Apis'
 import { useAuth0 } from "@auth0/auth0-react";
 
-
-const  Addtask=({match})=> {
+const  AddProject1=(data)=> {
   const { user, isAuthenticated,loginWithRedirect } = useAuth0();
-  var pid=parseInt(match.params.id)
-  console.log(typeof(pid))
+
+
   const [values, setValues] = useState({
 
       title: "",
       description: "",
-      createdby: user.name,
+      postedby: user.name,
       assignedto: "",
-      estimation: "",
+      estimation: 10,
       status: "not completed",
       adminId: window.$id,
-      projectId:match.params.id,
-      
+      workedhours:0
 })
 
 const [result,setresult]=useState({
@@ -30,11 +28,10 @@ const [result,setresult]=useState({
 
 
 
-
-
+console.log("adminid:",window.$id)
 
   const {error,success}=result;
-  const {title,description,createdby,assignedto,estimation,status,adminId,projectId}=values;
+  const {title,description,postedby,assignedto,estimation,status,adminId,workedhours}=values;
 
   const handlechange=name=>event=>{
     setValues({...values,[name]:event.target.value})
@@ -50,24 +47,23 @@ const successmessgae=()=>{
       </div> 
   )
 }
+console.log(values)
 const onsubmit=event =>{
   event.preventDefault();
-  setValues({...values})
   setresult({...result,error:false,success:"true"}) 
   
-  adminaddtask(values.projectId,values)
+  adminaddproject(values,values.adminId)
 
   
   .then(data=>{
     setValues({...values,
       title: "",
       description: "",
-      createdby: "",
+      postedby: "",
       assignedto: "",
       estimation: "",
-      status: "not completed",
-      adminId: window.$id,
-      projectId:0,
+      status: "",
+      adminId:"",
     
     })
 
@@ -81,11 +77,11 @@ const onsubmit=event =>{
             {successmessgae}
 
             <div className="container pt-5">
-            <h1 class="display-4 pb-5">ADD TASK</h1>
+            <h1 class="display-4 pb-5">ADD Project</h1>
             <div className="form-row">
     <div class="form-group col-md-6">
       <label>Title</label>
-      <input type="text" className="form-control" onChange={handlechange("title")} autoFocus required placeholder="Task Title" value={title}/>
+      <input type="text" className="form-control" onChange={handlechange("title")} autoFocus required placeholder="Project Title" value={title}/>
     </div>
 
     <div class="form-group col-md-6">
@@ -93,12 +89,12 @@ const onsubmit=event =>{
       <input type="email" className="form-control" onChange={handlechange("assignedto")} autoFocus required placeholder="Assigning To" value={assignedto}/>
     </div>
     <div class="form-group col-md-6">
-      <label>Project Id</label>
-      <input type="text" className="form-control" onChange={handlechange("projectId")} autoFocus required placeholder="Project Id" value={projectId}/>
+      <label>Admin Id</label>
+      <input type="text" className="form-control" onChange={handlechange("adminId")} autoFocus required placeholder="Admin Id" value={adminId}/>
     </div>
     <div class="form-group col-md-6">
       <label>Created By</label>
-      <input type="email" className="form-control" onChange={handlechange("createdby")} autoFocus required placeholder="Created BY" value={createdby}/>
+      <input type="email" className="form-control" onChange={handlechange("postedby")} autoFocus required placeholder="Created BY" value={postedby}/>
     </div>
     <div class="form-group col-10">
       <label>Description</label>
@@ -110,11 +106,11 @@ const onsubmit=event =>{
     </div>
 
     <span className="pt-5"></span>
-    <button className="btn btn-primary p-2" onClick={onsubmit}> Add Task</button>
+    <button className="btn btn-primary p-2" onClick={onsubmit}> Add Project</button>
     </div>
     </div>            
         </div>
     )
 }
 
-export default Addtask
+export default AddProject1

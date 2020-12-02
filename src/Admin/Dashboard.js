@@ -94,8 +94,7 @@ useEffect(()=>{
         <i class="fa fa-user" aria-hidden="true"></i>{user.name}<span></span></button>
         <div className="pt-4 pl-3">
         <StyledI>
-        <Link to="/project/addproject"> <div className="row container pt-2"> <i class="fa fa-plus" aria-hidden="true"/><h5>
-            Create Project</h5></div></Link>
+
             <Link to="/addintern"><div className="row container pt-4"> <i class="fa fa-id-badge" aria-hidden="true"/><h5>Create Intern</h5></div></Link>
            
             <Link to="/issue"> <div className="row container pt-4" ><i class="fa fa-bug" aria-hidden="true"/><h5>View Issue</h5></div></Link>
