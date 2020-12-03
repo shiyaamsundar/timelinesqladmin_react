@@ -161,6 +161,24 @@ export const adminaddtask=(id,data)=>{
     }).catch(err=>console.log(err))
 }
 
+export const addtask=(id,data)=>{
+    console.log("task",data)
+    
+    return fetch(`${API}/admin/projects/${id}/tasks`,{
+        method:"POST",
+        headers:{
+        Accept:"application/json",
+        "Content-Type":"application/json",
+    },
+    body:JSON.stringify(data)
+    
+    
+    
+    },).then(res=>{
+        console.log(res)
+        return res.json()
+    }).catch(err=>console.log(err))
+}
 export const admininterndashboard=(id)=>{
     return fetch(`${API}/interns/${id}/dashboard`,
     {method:'GET',}

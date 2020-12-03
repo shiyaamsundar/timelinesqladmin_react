@@ -86,7 +86,7 @@ const onsubmit=event =>{
 
     <div class="form-group col-md-6">
       <label>Assigned to</label>
-      <input type="email" className="form-control" onChange={handlechange("assignedto")} autoFocus required placeholder="Assigning To" value={assignedto}/>
+      <input type="email" className="form-control" onChange={handlechange("assignedto")} autoFocus required placeholder="Assigning To-intern email" value={assignedto}/>
     </div>
     <div class="form-group col-md-6">
       <label>Admin Id</label>
@@ -94,7 +94,7 @@ const onsubmit=event =>{
     </div>
     <div class="form-group col-md-6">
       <label>Created By</label>
-      <input type="email" className="form-control" onChange={handlechange("postedby")} autoFocus required placeholder="Created BY" value={postedby}/>
+      <input type="email" className="form-control" onChange={handlechange("postedby")} autoFocus required placeholder="Created BY-admin email" value={postedby}/>
     </div>
     <div class="form-group col-10">
       <label>Description</label>
@@ -102,7 +102,7 @@ const onsubmit=event =>{
     </div>
     <div class="form-group col-2">
       <label>Estimation</label>
-      <input type="text" className="form-control" onChange={handlechange("estimation")} autoFocus required placeholder="Estimation" value={estimation}/>
+      <input type="text" className="form-control" onChange={handlechange("estimation")} autoFocus required placeholder="Estimation-time" value={estimation}/>
     </div>
 
     <span className="pt-5"></span>

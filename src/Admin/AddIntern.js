@@ -27,6 +27,7 @@ const handlechange=name=>event=>{
 
 const onsubmit=event=>{
   event.preventDefault();
+
   adminaddintern(values).then(data=>{
     setValues({...values,
       fname: "",
@@ -39,8 +40,8 @@ const onsubmit=event=>{
       adminId: window.$id})
   }).catch(err=>console.log(err))
 
-}
 
+}
   return (
         <div>
         <Nav/>            
